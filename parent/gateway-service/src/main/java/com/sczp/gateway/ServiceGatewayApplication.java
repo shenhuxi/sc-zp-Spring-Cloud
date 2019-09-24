@@ -13,8 +13,4 @@ public class ServiceGatewayApplication {
         SpringApplication.run( ServiceGatewayApplication.class, args );
     }
 
-    @Bean
-    public RequestTimeGatewayFilterFactory requestTimeGatewayFilterFactory() {
-        return new RequestTimeGatewayFilterFactory();
-    }
 }
