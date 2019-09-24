@@ -21,7 +21,7 @@ public class WebConfig {
     public TokenFilter tokenFilter(){
         return new TokenFilter();
     }
-    @Bean
+    //@Bean
     public RouteLocator customerRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route(r -> r.path("/customer/**")

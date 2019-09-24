@@ -2,7 +2,9 @@ server:
   port: 8081
 spring:
   profiles:
-    active: rewritepath_route
+    active: gateway_limit
+  application:
+    name: sc-gateway-server
 eureka:
   client:
     service-url:
@@ -13,37 +15,27 @@ logging:
 
 
 ---
-#测试gateway限流的能力
+#测试gateway限流
 spring:
-  profiles: filter_limit
-  application:
-    name: sc-gateway-server
+  profiles: gateway_limit
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: false
-          # 如果不改的话，之前的localhost:8081/service-hi/hi?name=1323这样的请求地址也能正常访问，因为这时为每个服务创建了2个router。
-          lowerCaseServiceId: true
       routes:
-      - id: service-hi
-        uri: lb://SERVICE-HI
+      - id: limit_route
+        uri: http://httpbin.org:80/get
         predicates:
-          - Path=/demo/**
-#          将以/demo/**开头的请求都会转发到uri为lb://SERVICE-HI的地址上，lb://SERVICE-HI即service-hi服务的负载均衡地址，
-#          并用StripPrefix的filter 在转发之前将/demo去掉。
+        - After=2017-01-20T17:42:47.789-07:00[America/Denver]
         filters:
-          - StripPrefix=1
-          - RequestTime=true
-#          - name: RequestRateLimiter
-#              args:
-#                key-resolver: '#{@hostAddrKeyResolver}'
-#                redis-rate-limiter.replenishRate: 1
-#                redis-rate-limiter.burstCapacity: 3
+        - name: RequestRateLimiter
+          args:
+            key-resolver: '#{@hostAddrKeyResolver}'
+            redis-rate-limiter.replenishRate: 1
+            redis-rate-limiter.burstCapacity: 1
   redis:
     host: localhost
     port: 6379
     database: 0
+
 
 
 
@@ -76,6 +68,37 @@ spring:
         #所有的/foo/**开始的路径都会命中配置的router，并执行过滤器的逻辑，在本案例中配置了RewritePath过滤器工厂，
         #此工厂将/foo/(?.*)重写为{segment}，然后转发到https://blog.csdn.net。
         #eg:localhost:8081/foo/forezp    https://blog.csdn.net/forezp
-
+---
+#测试predicates 的 Path转发能力
+spring:
+  profiles: rewritepath_route2
+  application:
+    name: sc-gateway-server
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+          # 如果不改的话，之前的localhost:8081/service-hi/hi?name=1323这样的请求地址也能正常访问，因为这时为每个服务创建了2个router。
+          lowerCaseServiceId: true
+      routes:
+      - id: service-hi
+        uri: lb://SERVICE-HI
+        predicates:
+        - Path=/demo/**
+        #          将以/demo/**开头的请求都会转发到uri为lb://SERVICE-HI的地址上，lb://SERVICE-HI即service-hi服务的负载均衡地址，
+        #          并用StripPrefix的filter 在转发之前将/demo去掉。
+        filters:
+        - StripPrefix=1
+        - RequestTime=true
+  #          - name: RequestRateLimiter
+  #              args:
+  #                key-resolver: '#{@hostAddrKeyResolver}'
+  #                redis-rate-limiter.replenishRate: 1
+  #                redis-rate-limiter.burstCapacity: 3
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
 
 
