@@ -32,6 +32,5 @@ public class WebConfig {
                         .id("customer_filter_router")
                 )
                 .build();
-
     }
 }

@@ -1,0 +1,14 @@
+package com.sczp.system.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+@Service
+public class UserService {
+    @Autowired
+    RestTemplate restTemplate;
+
+    public String getUserByName(String name) {
+        return "{id:1,name:张三,age:25}";
+    }
+}

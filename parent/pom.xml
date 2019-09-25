@@ -10,6 +10,7 @@
         <module>hi-service</module>
         <module>eureka-service</module>
         <module>gateway-service</module>
+        <module>system-service</module>
     </modules>
     <packaging>pom</packaging>
 
