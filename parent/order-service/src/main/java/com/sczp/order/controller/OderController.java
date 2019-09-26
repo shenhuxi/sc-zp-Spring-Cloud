@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/order1")
+@RequestMapping("/order")
 public class OderController {
     final OrderService orderService;
 
@@ -19,7 +19,7 @@ public class OderController {
     public String  createOrder(){
         System.out.println("sdasdas");
         System.out.println("sdasdas");
-        String order = orderService.createOrder();
+       String order = orderService.createOrder();
         return order;
     }
 }

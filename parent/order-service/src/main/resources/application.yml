@@ -26,9 +26,9 @@ ribbon:
   ConnectTimeout: 5000
 ###配置请求超时时间
 hystrix:
-  command:
-    default:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 7000
+                                     command:
+                                       default:
+                                         execution:
+                                           isolation:
+                                             thread:
+                                               timeoutInMilliseconds: 7000

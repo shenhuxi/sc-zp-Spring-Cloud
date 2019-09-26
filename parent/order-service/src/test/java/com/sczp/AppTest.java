@@ -1,4 +1,4 @@
-package com.sczp.eureka;
+package com.sczp;
 
 import static org.junit.Assert.assertTrue;
 
