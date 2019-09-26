@@ -10,7 +10,7 @@ public class UserService {
 
     public String getUserByName(String name) {
         try {
-            Thread.sleep(1500);
+            Thread.sleep(5500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

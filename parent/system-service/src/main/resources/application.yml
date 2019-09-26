@@ -4,6 +4,13 @@ server:
 spring:
   application:
     name: system-service
+  cloud:
+    config:
+      label: master
+      profile: dev
+      discovery:
+        enabled: true
+        serviceId: config-server
 
 eureka:
   client:
@@ -12,3 +19,4 @@ eureka:
   instance:
     lease-renewal-interval-in-seconds: 10
     lease-expiration-duration-in-seconds: 30
+

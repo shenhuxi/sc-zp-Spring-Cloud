@@ -17,9 +17,7 @@ public class OderController {
     }
     @GetMapping("/createOrder")
     public String  createOrder(){
-        System.out.println("sdasdas");
-        System.out.println("sdasdas");
-       String order = orderService.createOrder();
+        String order = orderService.createOrder();
         return order;
     }
 }
