@@ -5,6 +5,8 @@ spring:
     active: rewritepath_route2
   application:
     name: sc-gateway-server
+  zipkin:
+    base-url: http://localhost:9411
 eureka:
   client:
     service-url:

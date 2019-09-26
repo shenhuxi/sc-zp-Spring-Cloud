@@ -33,6 +33,11 @@
             <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>
+        <!--引入 Sleuth(Finchley版本)-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

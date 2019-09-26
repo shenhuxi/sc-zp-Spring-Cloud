@@ -1,5 +1,6 @@
 package com.sczp.gateway;
 
+import brave.sampler.Sampler;
 import com.sczp.gateway.filter.HostAddrKeyResolver;
 import com.sczp.gateway.filter.RequestTimeFilter;
 import com.sczp.gateway.filter.TokenFilter;
@@ -32,5 +33,11 @@ public class WebConfig {
                         .id("customer_filter_router")
                 )
                 .build();
+    }
+
+    //注入Spring cloud sleuth需要的bean
+    @Bean
+    public Sampler defaultSampler() {
+        return Sampler.ALWAYS_SAMPLE;
     }
 }

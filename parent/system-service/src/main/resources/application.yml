@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: system-service
+  zipkin:
+    base-url: http://localhost:9411
   cloud:
     config:
       label: master
