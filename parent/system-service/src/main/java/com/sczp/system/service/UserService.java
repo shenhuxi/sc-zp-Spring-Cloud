@@ -9,6 +9,11 @@ public class UserService {
     RestTemplate restTemplate;
 
     public String getUserByName(String name) {
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return "{id:1,name:张三,age:25}";
     }
 }
