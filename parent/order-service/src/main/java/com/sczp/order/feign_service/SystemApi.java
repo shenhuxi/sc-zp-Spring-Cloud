@@ -16,4 +16,7 @@ public interface SystemApi {
     })
     @RequestMapping(value = "user/getUserByName",method = RequestMethod.GET)
     String getUserByName(@RequestParam(value = "name") String name);
+
+    @RequestMapping(value = "user/testRedisKey",method = RequestMethod.GET)
+    String testRedisKey(@RequestParam(value = "name") String redisKey);
 }

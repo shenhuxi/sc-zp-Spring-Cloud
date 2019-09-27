@@ -13,7 +13,18 @@ spring:
       discovery:
         enabled: true
         serviceId: config-server
-
+  redis:
+    database: 0
+    host: 127.0.0.1
+    password: 'issmart'
+    port: 6379
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+    timeout: 2000ms
 eureka:
   client:
     serviceUrl:

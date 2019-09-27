@@ -23,6 +23,11 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping("/testRedisKey")
+    public String testRedisKey(String redisKey){
+        return userService.testRedisKey(redisKey);
+    }
+
     @GetMapping("/getUserByName")
     public String getUserByName(String name){
         return userService.getUserByName(name);
@@ -32,4 +37,6 @@ public class UserController {
     public String getAdminInfo(String name){
         return this.adminName+":"+this.adminPassword;
     }
+
+
 }

@@ -15,6 +15,12 @@ public class OderController {
     public OderController(OrderService orderService) {
         this.orderService = orderService;
     }
+
+    @GetMapping("/testRedisKey")
+    public String testRedisKey(String redisKey){
+        return orderService.testRedisKey(redisKey);
+    }
+
     @GetMapping("/createOrder")
     public String  createOrder(){
         String order = orderService.createOrder();

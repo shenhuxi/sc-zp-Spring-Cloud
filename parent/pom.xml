@@ -5,13 +5,14 @@
 
     <groupId>com.sczp</groupId>
     <artifactId>parent</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <modules>
         <module>order-service</module>
         <module>eureka-service</module>
         <module>gateway-service</module>
         <module>system-service</module>
         <module>config-server</module>
+        <module>common</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -27,6 +28,7 @@
 
 
     <properties>
+        <self.version>1.0.0</self.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
