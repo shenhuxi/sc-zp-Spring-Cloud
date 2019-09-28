@@ -1,4 +1,4 @@
-package com.sczp.system.util.result;
+package com.sczp.system.jpa.utils;
 
 /**
  * Date: 2017年12月15日 上午10:06:55 <br/>

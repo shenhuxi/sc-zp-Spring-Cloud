@@ -1,4 +1,4 @@
-package com.sczp.system.repository;
+package com.sczp.system.jpa.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,7 +24,7 @@ public interface BaseRepository<T,ID extends Serializable>  extends JpaRepositor
      * 根据查询参数查询
      * @param searchParams 【过滤条件】
      * @param pageRequest 【分页参数对象】
-     * @returnfindListByParams
+     * @return
      */
     public Page<T> findPageByParams(Map<String, Object> searchParams, PageRequest pageRequest);
 

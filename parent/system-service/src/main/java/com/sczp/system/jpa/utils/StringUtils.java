@@ -1,4 +1,4 @@
-package com.sczp.system.util;
+package com.sczp.system.jpa.utils;
 
 import java.util.ArrayList;
 import java.util.List;

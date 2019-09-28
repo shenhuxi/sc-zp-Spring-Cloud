@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.sczp.system.util;
+package com.sczp.system.jpa.utils;
 
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.DateConverter;

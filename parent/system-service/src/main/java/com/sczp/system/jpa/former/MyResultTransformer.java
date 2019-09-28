@@ -1,4 +1,4 @@
-package com.sczp.system.former;
+package com.sczp.system.jpa.former;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.lang3.Validate;

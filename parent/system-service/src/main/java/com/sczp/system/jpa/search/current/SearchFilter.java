@@ -1,7 +1,7 @@
-package com.sczp.system.search.current;
+package com.sczp.system.jpa.search.current;
 
-import com.sczp.system.util.ReflectionUtils;
-import com.sczp.system.util.StringUtils;
+import com.sczp.system.jpa.utils.ReflectionUtils;
+import com.sczp.system.jpa.utils.StringUtils;
 import org.springframework.data.domain.Sort.Order;
 
 import java.util.*;

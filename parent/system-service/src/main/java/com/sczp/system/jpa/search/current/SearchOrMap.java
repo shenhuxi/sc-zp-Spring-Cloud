@@ -1,4 +1,4 @@
-package com.sczp.system.search.current;
+package com.sczp.system.jpa.search.current;
 
 import java.util.LinkedHashMap;
 

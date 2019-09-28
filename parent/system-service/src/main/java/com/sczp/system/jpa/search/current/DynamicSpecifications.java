@@ -1,14 +1,14 @@
 /**
  * 
  */
-package com.sczp.system.search.current;
+package com.sczp.system.jpa.search.current;
 
 /**
  * @author Administrator
  * 
  */
 
-import com.sczp.system.util.StringUtils;
+import com.sczp.system.jpa.utils.StringUtils;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.data.jpa.domain.Specification;

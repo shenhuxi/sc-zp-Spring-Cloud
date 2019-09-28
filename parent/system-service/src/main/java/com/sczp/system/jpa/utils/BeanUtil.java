@@ -1,6 +1,6 @@
-package com.sczp.system.util;
+package com.sczp.system.jpa.utils;
 
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;

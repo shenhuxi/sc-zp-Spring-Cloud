@@ -1,4 +1,4 @@
-package com.sczp.system.search.current;
+package com.sczp.system.jpa.search.current;
 
 import javax.persistence.Query;
 import java.util.ArrayList;

@@ -1,9 +1,9 @@
-package com.sczp.system.service.impl;
+package com.sczp.system.jpa.service.impl;
 
-import com.sczp.system.former.MyResultTransformer;
-import com.sczp.system.repository.BaseRepository;
-import com.sczp.system.service.BaseService;
-import com.sczp.system.util.BeanUtil;
+import com.sczp.system.jpa.former.MyResultTransformer;
+import com.sczp.system.jpa.repository.BaseRepository;
+import com.sczp.system.jpa.service.BaseService;
+import com.sczp.system.jpa.utils.BeanUtil;
 import org.hibernate.SQLQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

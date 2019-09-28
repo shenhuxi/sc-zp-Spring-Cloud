@@ -1,10 +1,10 @@
-package com.sczp.system.repository;
+package com.sczp.system.jpa.repository;
 
 
-import com.sczp.system.former.MyResultTransformer;
-import com.sczp.system.search.current.DynamicSpecifications;
-import com.sczp.system.search.current.QLFinder;
-import com.sczp.system.search.current.SearchFilter;
+import com.sczp.system.jpa.former.MyResultTransformer;
+import com.sczp.system.jpa.search.current.DynamicSpecifications;
+import com.sczp.system.jpa.search.current.QLFinder;
+import com.sczp.system.jpa.search.current.SearchFilter;
 import org.hibernate.SQLQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

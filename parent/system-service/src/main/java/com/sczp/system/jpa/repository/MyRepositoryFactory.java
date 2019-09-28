@@ -1,4 +1,4 @@
-package com.sczp.system.repository;
+package com.sczp.system.jpa.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;

@@ -1,7 +1,8 @@
 package com.sczp.system.service.impl;
 
 import com.sczp.system.entity.User;
-import com.sczp.system.repository.BaseRepository;
+import com.sczp.system.jpa.repository.BaseRepository;
+import com.sczp.system.jpa.service.impl.BaseServiceImpl;
 import com.sczp.system.repository.UserRepository;
 import com.sczp.system.service.UserService;
 import com.sczp.system.util.RedisService;
@@ -17,7 +18,7 @@ import java.util.concurrent.ExecutorService;
 
 @Service
 @Transactional
-public 	class UserServiceImpl extends BaseServiceImpl<User,Long>  implements UserService {
+public 	class UserServiceImpl extends BaseServiceImpl<User,Long> implements UserService {
 	private final RestTemplate restTemplate;
 	private final RedisService redisService;
 	private final RedisTemplate redisTemplate;

@@ -1,4 +1,4 @@
-package com.sczp.system.util;
+package com.sczp.system.jpa.utils;
 
 import java.io.*;
 import java.security.MessageDigest;

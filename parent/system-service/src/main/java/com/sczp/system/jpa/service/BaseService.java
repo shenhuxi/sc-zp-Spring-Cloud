@@ -1,4 +1,4 @@
-package com.sczp.system.service;
+package com.sczp.system.jpa.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -211,6 +211,5 @@ public interface BaseService<E,ID extends Serializable>  {
 	 * 创建时间: 2018/8/20 19:49
 	 */
 	<K>List<K> findListByJPQL(String jpql, Map<String, Object> searchParams, Class<K> clz, Sort sort);
-
 
 }

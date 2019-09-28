@@ -1,6 +1,7 @@
 package com.sczp.system.repository;
 
 import com.sczp.system.entity.User;
+import com.sczp.system.jpa.repository.BaseRepository;
 import org.springframework.stereotype.Repository;
 
 /**

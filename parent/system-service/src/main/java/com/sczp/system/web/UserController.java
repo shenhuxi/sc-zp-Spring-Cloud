@@ -1,9 +1,9 @@
 package com.sczp.system.web;
 
 import com.sczp.system.entity.User;
+import com.sczp.system.jpa.utils.MD;
+import com.sczp.system.jpa.utils.ResultObject;
 import com.sczp.system.service.UserService;
-import com.sczp.system.util.MD;
-import com.sczp.system.util.result.ResultObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.BindingResult;
@@ -35,10 +35,10 @@ public class UserController {
         String initPassword = "f883ee10adc3949ba59abbe56e057f20";
         user.setPassWord(MD.md5(initPassword +user.getUserName()));
         User findByUserName1 = userService.findByUserName(user.getUserName());
-        //User findByUserName = userService.findOne(1L);
-      /*  if(findByUserName!=null||findByUserName1!=null) {
+        User findByUserName = userService.findOne(1L);
+        if(findByUserName!=null||findByUserName1!=null) {
             return ResultObject.error("账号已存在！");
-        }*/
+        }
         User saveUser = userService.save(user);
         return ResultObject.ok(saveUser);
     }
