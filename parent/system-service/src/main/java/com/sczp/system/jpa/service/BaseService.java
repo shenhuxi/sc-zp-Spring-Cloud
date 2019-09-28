@@ -1,5 +1,6 @@
 package com.sczp.system.jpa.service;
 
+import com.sczp.system.exception.DataNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -31,7 +32,7 @@ public interface BaseService<E,ID extends Serializable>  {
 	 * @param id
 	 * @return
 	 */
-	E findOne(ID id);
+	E findOne(ID id) throws DataNotFoundException;
 
 	/**
 	 * 获取所有的Entity列表

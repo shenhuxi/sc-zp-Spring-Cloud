@@ -1,5 +1,6 @@
 package com.sczp.system.jpa.service.impl;
 
+import com.sczp.system.exception.DataNotFoundException;
 import com.sczp.system.jpa.former.MyResultTransformer;
 import com.sczp.system.jpa.repository.BaseRepository;
 import com.sczp.system.jpa.service.BaseService;
@@ -46,9 +47,9 @@ public abstract class BaseServiceImpl<E,ID extends Serializable> implements Base
 	 * getOne:查询一个不存在的id数据时，直接抛出异常
 	 */
 	@Override
-	public E findOne(ID id)  {
+	public E findOne(ID id) throws DataNotFoundException {
 		Optional<E> byId = getCommonRepository().findById(id);
-        E e = byId.orElseThrow(() -> new RuntimeException(id.toString()));
+        E e = byId.orElseThrow(() -> new DataNotFoundException("数据不存在"+id.toString()));
         return e;
 	}
 
