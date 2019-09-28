@@ -1,10 +1,10 @@
 package com.sczp.order.controller;
 
+import com.sczp.order.entity.Order;
+import com.sczp.order.jpa.utils.ResultObject;
 import com.sczp.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/order")
@@ -21,9 +21,11 @@ public class OderController {
         return orderService.testRedisKey(redisKey);
     }
 
-    @GetMapping("/createOrder")
-    public String  createOrder(){
-        String order = orderService.createOrder();
-        return order;
+    @PostMapping("/createOrder")
+    public ResultObject createOrder(@RequestBody Order order){
+        if (orderService.createOrder(order)){
+            return ResultObject.ok("订单创建成功！");
+        }
+        return ResultObject.error("服务器处理错误！");
     }
 }
