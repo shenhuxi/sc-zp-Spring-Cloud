@@ -1,9 +1,60 @@
 server:
   port: 8771
 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30
+
 spring:
   application:
     name: system-service
+
+  datasource:
+    name: MYDB
+    #schema: classpath:/sql/schema-mysql.sql
+    #data: classpath:/sql/data-h2.sql
+    sql-script-encoding: utf-8
+    driver-class-name:   com.mysql.jdbc.Driver
+    #schema: classpath:/sql/schema-mysql.sql
+    #data: classpath:/sql/data-h2.sql
+    # url: jdbc:log4jdbc:mysql://120.78.82.118:3306/nwarc?autoReconnect=true&useUnicode=true&allowMultiQueries=true&useSSL=false
+    # url: jdbc:log4jdbc:mysql://127.0.0.1:3306/mydata?autoReconnect=true&useUnicode=true&allowMultiQueries=true&useSSL=false&characterEncoding=utf8
+    url: jdbc:mysql://127.0.0.1:3306/zp_self?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useServerPrepStmts=false&rewriteBatchedStatements=true
+    username: admin
+    password: admin123
+
+    tomcat:
+      max-active: 100
+      max-idle: 10
+      min-idle: 1
+      initial-size: 5
+      validation-query: select 1
+      test-on-borrow: true
+      test-on-return: false
+      time-between-eviction-runs-millis: 600000
+      min-evictable-idle-time-millis: 300000
+  jpa:
+    open-in-view: false
+    show-sql: false
+    hibernate:
+      ddl-auto: update # Hibernate ddl auto (none, create, create-drop, update, validate)
+    properties:
+      #      hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+      hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect    #默认使用innodb引擎
+      hibernate.format_sql: true
+      hibernate.max_fetch_depth: 1
+      hibernate.generate_statistics: false
+      hibernate.use_sql_comments: true
+  thymeleaf:
+    mode: HTML
+    encoding: UTF-8
+    cache: false
+
+
   zipkin:
     base-url: http://localhost:9411
   cloud:
@@ -25,11 +76,5 @@ spring:
         max-wait: -1ms
         min-idle: 0
     timeout: 2000ms
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
-  instance:
-    lease-renewal-interval-in-seconds: 10
-    lease-expiration-duration-in-seconds: 30
+
 
