@@ -14,7 +14,7 @@ spring:
     #data: classpath:/sql/data-h2.sql
     # url: jdbc:log4jdbc:mysql://120.78.82.118:3306/nwarc?autoReconnect=true&useUnicode=true&allowMultiQueries=true&useSSL=false
     # url: jdbc:log4jdbc:mysql://127.0.0.1:3306/mydata?autoReconnect=true&useUnicode=true&allowMultiQueries=true&useSSL=false&characterEncoding=utf8
-    url: jdbc:mysql://127.0.0.1:3306/zp_self?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useServerPrepStmts=false&rewriteBatchedStatements=true
+    url: jdbc:mysql://127.0.0.1:3306/zp_self_order?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useServerPrepStmts=false&rewriteBatchedStatements=true
     username: admin
     password: admin123
 
