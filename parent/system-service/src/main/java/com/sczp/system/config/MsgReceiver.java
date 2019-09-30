@@ -1,4 +1,4 @@
-package com.sczp.order.config;
+package com.sczp.system.config;
 
 import com.sczp.order.util.JSONUtils;
 import net.sf.json.JSONObject;
