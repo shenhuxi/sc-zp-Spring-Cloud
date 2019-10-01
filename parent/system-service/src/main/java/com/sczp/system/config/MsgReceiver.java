@@ -46,7 +46,7 @@ public class MsgReceiver {
         if(redisService.getStr("QUEUE_Order_Pay:"+eventId)==null){
             redisService.setStrOut(eventId,null,60);
         }else {
-            channel.basicAck(message.getMessageProperties().getDeliveryTag(), true);
+            //channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
             return;
         }
 
@@ -56,7 +56,7 @@ public class MsgReceiver {
         eventProcess.setEventType(EventType.ORDER_PAY);
         eventProcess.setPayload(jsonObject.toString());
         eventProcessRepository.save(eventProcess);
-        channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+       // channel.basicAck(message.getMessageProperties().getDeliveryTag(), true);
         eventProcessRepository.flush();
 
         //step2. 处理逻辑

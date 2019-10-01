@@ -35,9 +35,6 @@ public class OrderServiceImpl extends BaseServiceImpl<Order,Long> implements Ord
     private final OrderRepository orderRepository;
     private final EventPublishRepository eventPublishRepository;
     //由于rabbitTemplate的scope属性设置为ConfigurableBeanFactory.SCOPE_PROTOTYPE，所以不能自动注入
-    private  EventPublish event ;
-    private  CorrelationData correlationId;
-    private  String strJson;
 
     private RabbitTemplate rabbitTemplate;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -74,10 +71,10 @@ public class OrderServiceImpl extends BaseServiceImpl<Order,Long> implements Ord
         object.put("price", order.getPrice());
         object.put("userId", order.getUserId());
         object.put("eventId", eventId);
-        strJson =object.toJSONString();
+        String strJson =object.toJSONString();
 
         //step2. 创建事件对象---提交一次事务
-        this.event = new EventPublish();
+        EventPublish event = new EventPublish();
         event.setEventID(eventId);
         event.setStatus(EventStatus.NEW);
         event.setEventType(EventType.ORDER_PAY);
@@ -86,8 +83,10 @@ public class OrderServiceImpl extends BaseServiceImpl<Order,Long> implements Ord
         eventPublishRepository.flush();
 
         //step3. 发送减去用户资产 的请求给System服务-----到队列
-        correlationId = new CorrelationData(eventId);
+        CorrelationData correlationId = new CorrelationData(eventId);
         sendQueen(strJson,correlationId);
+
+        System.out.println("主线程执行完了");
         return true;
     }
 
@@ -99,25 +98,11 @@ public class OrderServiceImpl extends BaseServiceImpl<Order,Long> implements Ord
     public void confirm(CorrelationData correlationData, boolean ack, String cause) {
         System.out.println(" 回调id:" + correlationData);
         int numb = 0;
-        while (numb<5){//尝试5次失败，记录发送失败；人工处理
-            if (ack) {
-                System.out.println("消息成功发布到rabbitMQ");
-                event.setStatus(EventStatus.PUBLISHED);
-                break;
-            } else {
-                sendQueen(strJson,correlationId);
-                try {
-                    Thread.sleep(100);
-                    numb++;
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+        if (ack) {
+            System.out.println("消息成功发布到rabbitMQ");
+        } else {
+            System.out.println("消息发布到rabbitMQ失败");
         }
-        if (numb>=5){
-            event.setStatus(EventStatus.PUBLISHED_FAIL);
-        }
-        eventPublishRepository.save(event);
     }
 
     public String testRedisKey(String redisKey) {//在system测试了  这里不完善了
