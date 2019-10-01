@@ -1,22 +1,27 @@
 package com.sczp.gateway;
 
 import brave.sampler.Sampler;
-import com.sczp.gateway.filter.HostAddrKeyResolver;
 import com.sczp.gateway.filter.RequestTimeFilter;
 import com.sczp.gateway.filter.TokenFilter;
+import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Mono;
 
 @Component
 public class WebConfig {
     //限流器注入ioc
-    @Bean
-    public HostAddrKeyResolver hostAddrKeyResolver() {
+    //@Bean
+   /* public HostAddrKeyResolver hostAddrKeyResolver() {
         return new HostAddrKeyResolver();
-    }
+    }*/
 
+    @Bean
+    public KeyResolver hostAddrKeyResolver() {
+        return exchange -> Mono.just(exchange.getRequest().getRemoteAddress().getHostName());
+    }
     //全局过滤判断token器注入ioc
     @Bean
     public TokenFilter tokenFilter(){

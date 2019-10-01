@@ -121,7 +121,7 @@ public class RedisService {
      * @return
      */
     public HashMap<String,Object> getMapAll(String key){
-    	Map<String,Object> entries = redisTemplate.opsForHash().entries(key);  
+    	Map<String,Object> entries = redisTemplate.opsForHash().entries(key);
         return (HashMap<String, Object>) entries;
     }
     /**

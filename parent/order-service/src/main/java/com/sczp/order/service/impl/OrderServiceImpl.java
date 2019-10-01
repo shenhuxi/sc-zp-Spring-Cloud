@@ -31,7 +31,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order,Long> implements Ord
     ExecutorService threadPoolInstance = ThreadPoolInstance.getThreadPoolInstance();
     private final SystemApi systemApi;
     private final RedisService redisService;
-    private final RedisTemplate redisTemplate;
+    private final RedisTemplate<String,String> redisTemplate;
     private final OrderRepository orderRepository;
     private final EventPublishRepository eventPublishRepository;
     //由于rabbitTemplate的scope属性设置为ConfigurableBeanFactory.SCOPE_PROTOTYPE，所以不能自动注入
@@ -62,31 +62,31 @@ public class OrderServiceImpl extends BaseServiceImpl<Order,Long> implements Ord
      */
     @Transactional(rollbackFor = Exception.class)
     public  boolean  createOrder(Order order){
-        //step1. 创建订单
-        getCommonRepository().save(order);
+        threadPoolInstance.execute(()->{
+            //step1. 创建订单
+            getCommonRepository().save(order);
 
-        String eventId = UUID.randomUUID().toString();
-        JSONObject object = new JSONObject();
-        object.put("orderCode", order.getOrderCode());
-        object.put("price", order.getPrice());
-        object.put("userId", order.getUserId());
-        object.put("eventId", eventId);
-        String strJson =object.toJSONString();
+            String eventId = UUID.randomUUID().toString();
+            JSONObject object = new JSONObject();
+            object.put("orderCode", order.getOrderCode());
+            object.put("price", order.getPrice());
+            object.put("userId", order.getUserId());
+            object.put("eventId", eventId);
+            String strJson =object.toJSONString();
 
-        //step2. 创建事件对象---提交一次事务
-        EventPublish event = new EventPublish();
-        event.setEventID(eventId);
-        event.setStatus(EventStatus.NEW);
-        event.setEventType(EventType.ORDER_PAY);
-        event.setPayload(strJson);
-        eventPublishRepository.save(event);
-        eventPublishRepository.flush();
+            //step2. 创建事件对象---提交一次事务
+            EventPublish event = new EventPublish();
+            event.setEventID(eventId);
+            event.setStatus(EventStatus.NEW);
+            event.setEventType(EventType.ORDER_PAY);
+            event.setPayload(strJson);
+            eventPublishRepository.save(event);
+            eventPublishRepository.flush();
 
-        //step3. 发送减去用户资产 的请求给System服务-----到队列
-        CorrelationData correlationId = new CorrelationData(eventId);
-        sendQueen(strJson,correlationId);
-
-        System.out.println("主线程执行完了");
+            //step3. 发送减去用户资产 的请求给System服务-----到队列
+            CorrelationData correlationId = new CorrelationData(eventId);
+            sendQueen(strJson,correlationId);
+        });
         return true;
     }
 

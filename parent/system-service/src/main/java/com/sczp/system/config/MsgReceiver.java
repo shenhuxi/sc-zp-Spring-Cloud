@@ -61,7 +61,6 @@ public class MsgReceiver {
 
         //step2. 处理逻辑
         System.out.println("消费:接收处理队列QUEUE_Order_Pay当中的消息： "+jsonObject.toString());
-        Thread.sleep(1000);
         eventProcess.setStatus(EventStatus.PUBLISHED);
     }
 

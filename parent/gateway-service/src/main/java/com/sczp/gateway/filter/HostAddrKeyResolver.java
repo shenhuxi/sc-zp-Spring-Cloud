@@ -11,7 +11,9 @@ public class HostAddrKeyResolver implements KeyResolver {
 
     @Override
     public Mono<String> resolve(ServerWebExchange exchange) {
-        Mono<String> just = Mono.just(exchange.getRequest().getRemoteAddress().getAddress().getHostAddress());
+        String hostName = exchange.getRequest().getRemoteAddress().getHostName();
+        System.out.println(hostName);
+        Mono<String> just = Mono.just(hostName);
         return just;
     }
 }
