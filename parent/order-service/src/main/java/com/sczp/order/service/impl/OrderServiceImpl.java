@@ -62,10 +62,9 @@ public class OrderServiceImpl extends BaseServiceImpl<Order,Long> implements Ord
      */
     @Transactional(rollbackFor = Exception.class)
     public  boolean  createOrder(Order order){
+        //step1. 创建订单
+        getCommonRepository().save(order);
         threadPoolInstance.execute(()->{
-            //step1. 创建订单
-            getCommonRepository().save(order);
-
             String eventId = UUID.randomUUID().toString();
             JSONObject object = new JSONObject();
             object.put("orderCode", order.getOrderCode());

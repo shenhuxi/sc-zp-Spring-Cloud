@@ -27,6 +27,7 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
+
     @PostMapping("/add")//测试Jpa
     public ResultObject<?> add(@Valid @RequestBody User user, BindingResult br) throws DataNotFoundException {
         if (br.hasErrors()) {
