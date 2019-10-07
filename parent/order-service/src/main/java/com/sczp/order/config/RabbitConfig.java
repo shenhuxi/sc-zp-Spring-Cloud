@@ -38,10 +38,13 @@ public class RabbitConfig {
 
 //----------------------------------------参数star--------------------------------------------
     public static final String EXCHANGE_Order_Pay = "my-mq-exchange_Order_Pay";
+    public static final String EXCHANGE_Product_Seckill= "my-mq-exchange_Product_Seckill";
 
     public static final String QUEUE_Order_Pay = "QUEUE_Order_Pay";
+    public static final String QUEUE_Product_Seckill = "QUEUE_Product_Seckill";
 
     public static final String ROUTINGKEY_Order_Pay = "spring-boot-routingKey_Order_Pay";
+    public static final String ROUTINGKEY_Product_Seckill = "spring-boot-routingKey_Product_Seckill";
     //----------------------------------------参数end--------------------------------------------
 
     //----------------------------------------配置star--------------------------------------------
@@ -81,6 +84,10 @@ public class RabbitConfig {
     public DirectExchange defaultExchange() {
         return new DirectExchange(EXCHANGE_Order_Pay);
     }
+    @Bean
+    public DirectExchange productSeckillExchange() {
+        return new DirectExchange(EXCHANGE_Product_Seckill);
+    }
     /**
      * 获取队列A B C
      */
@@ -88,10 +95,18 @@ public class RabbitConfig {
     public Queue queue_Order_Pay() {
         return new Queue(QUEUE_Order_Pay, true); //队列持久
     }
+    @Bean
+    public Queue queue_Product_Seckill() {
+        return new Queue(QUEUE_Product_Seckill, true); //队列持久
+    }
 
     @Bean
     public Binding binding() {
         return BindingBuilder.bind(queue_Order_Pay()).to(defaultExchange()).with(RabbitConfig.ROUTINGKEY_Order_Pay);
+    }
+    @Bean
+    public Binding bindingProductSeckill() {
+        return BindingBuilder.bind(queue_Product_Seckill()).to(productSeckillExchange()).with(RabbitConfig.ROUTINGKEY_Product_Seckill);
     }
     //----------------------------------------配置交换机、队列、路由 end--------------------------------------------
 

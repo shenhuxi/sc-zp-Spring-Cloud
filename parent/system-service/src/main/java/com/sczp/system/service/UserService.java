@@ -9,4 +9,6 @@ public interface UserService extends BaseService<User,Long> {
     String getUserByName(String name);
 
     String testRedisKey(String redisKey);
+
+    String testSynchronized();
 }

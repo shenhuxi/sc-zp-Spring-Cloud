@@ -11,12 +11,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.concurrent.locks.ReentrantLock;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
+    private Integer number = 0;
 
     private final UserService userService;
+
+    ReentrantLock lock = new ReentrantLock();
 
     @Value("${adminName}")
     String adminName;
@@ -60,7 +64,49 @@ public class UserController {
         return this.adminName+":"+this.adminPassword;
     }
 
+    @GetMapping("/testSynchronized")//测试controller是单线程还是多线程
+    public String testSynchronized(){
+        //1.不加锁会出错
+        for (int i = 0; i < 100; i++) {
+            this.number=this.number+1;
 
+        }
+        try {
+            Thread.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(Thread.currentThread().getName());
+        return number.toString();
+
+        //2.synchronized
+        /*synchronized (this.number){
+            for (int i = 0; i < 100; i++) {
+                this.number=this.number+1;
+            }
+            return number.toString();
+        }*/
+
+        //3.lock
+        /*try {
+            while(true){
+                if(lock.tryLock()){
+                    for (int i = 0; i < 100; i++) {
+                        this.number=this.number+1;
+                    }
+                    break;
+                }
+            }
+            return number.toString();
+        } finally {
+            lock.unlock();
+        }*/
+    }
+    @GetMapping("/getResultValue")//测试controller是单线程还是多线程  :获取累加后的值
+    public Integer getResultValue(){
+        return number=0;
+        //userService.testSynchronized();
+    }
 
 
 }

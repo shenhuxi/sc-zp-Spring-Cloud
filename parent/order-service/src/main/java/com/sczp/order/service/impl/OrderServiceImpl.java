@@ -12,7 +12,6 @@ import com.sczp.order.moudl.EventType;
 import com.sczp.order.repository.EventPublishRepository;
 import com.sczp.order.repository.OrderRepository;
 import com.sczp.order.service.OrderService;
-import com.sczp.order.util.RedisService;
 import com.sczp.order.util.threadPool.ThreadPoolInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -105,8 +104,8 @@ public class OrderServiceImpl extends BaseServiceImpl<Order,Long> implements Ord
     }
 
     public String testRedisKey(String redisKey) {//在system测试了  这里不完善了
-        String systemResult = systemApi.testRedisKey("张三");
-
+        //String systemResult = systemApi.testRedisKey("张三");
+        redisTemplate.opsForValue().set("aasd","a收到");
         //step1 处理逻辑 business.....
         try {
             Thread.sleep(200);
@@ -114,7 +113,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order,Long> implements Ord
             e.printStackTrace();
         }
 
-        return "msg:order处理成功,code:200 | "+systemResult;
+        return "msg:order处理成功,code:200 | ";
     }
 
     @Override
