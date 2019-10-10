@@ -55,18 +55,6 @@ public class RedisConfig extends CachingConfigurerSupport {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
-       /* StringRedisTemplate template = new StringRedisTemplate(factory);
-        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
-        ObjectMapper om = new ObjectMapper();
-        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-        jackson2JsonRedisSerializer.setObjectMapper(om);
-        //解决key乱码
-        template.setKeySerializer(jackson2JsonRedisSerializer);
-        template.setHashKeySerializer( jackson2JsonRedisSerializer);
-        template.afterPropertiesSet();
-        return template;*/
-
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(factory);
 //        JdkSerializationRedisSerializer jdkSerializationRedisSerializer = new JdkSerializationRedisSerializer();
@@ -80,4 +68,16 @@ public class RedisConfig extends CachingConfigurerSupport {
         redisTemplate.afterPropertiesSet();
         return redisTemplate;
     }
+
+      /* StringRedisTemplate template = new StringRedisTemplate(factory);
+        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
+        ObjectMapper om = new ObjectMapper();
+        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        jackson2JsonRedisSerializer.setObjectMapper(om);
+        //解决key乱码
+        template.setKeySerializer(jackson2JsonRedisSerializer);
+        template.setHashKeySerializer( jackson2JsonRedisSerializer);
+        template.afterPropertiesSet();
+        return template;*/
 }

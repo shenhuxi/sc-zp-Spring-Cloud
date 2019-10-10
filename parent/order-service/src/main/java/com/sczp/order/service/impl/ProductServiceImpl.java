@@ -7,6 +7,8 @@ import com.sczp.order.repository.ProductRepository;
 import com.sczp.order.service.ProductService;
 import com.sczp.order.util.ObjectToMap;
 import com.sczp.order.util.threadPool.ThreadPoolInstance;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.support.CorrelationData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,7 @@ public class ProductServiceImpl implements ProductService , RabbitTemplate.Confi
     private final ProductRepository productRepository;
     private final RedisTemplate redisTemplate;
     private final RabbitTemplate rabbitTemplate;
-
+    Logger logger =  LogManager.getLogger("weather");
     ExecutorService threadPoolInstance = ThreadPoolInstance.getThreadPoolInstance();
 
     private final String seckillProduct_Key = "seckillProduct";
@@ -92,8 +94,9 @@ public class ProductServiceImpl implements ProductService , RabbitTemplate.Confi
                 }
             }else {
                 try {
+                    //new Object().wait(2);
                     Thread.sleep(2);
-                    System.out.println("当前线程:"+Thread.currentThread().getName()+" 等待2毫秒");
+                    logger.info("当前线程:"+Thread.currentThread().getName()+" 等待2毫秒");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

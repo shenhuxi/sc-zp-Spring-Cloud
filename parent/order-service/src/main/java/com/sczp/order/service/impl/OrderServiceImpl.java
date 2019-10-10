@@ -13,8 +13,8 @@ import com.sczp.order.repository.EventPublishRepository;
 import com.sczp.order.repository.OrderRepository;
 import com.sczp.order.service.OrderService;
 import com.sczp.order.util.threadPool.ThreadPoolInstance;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.support.CorrelationData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +27,8 @@ import java.util.concurrent.ExecutorService;
 
 @Service
 public class OrderServiceImpl extends BaseServiceImpl<Order,Long> implements OrderService , RabbitTemplate.ConfirmCallback  {
+    Logger logger =  LogManager.getLogger("weather");
+
     ExecutorService threadPoolInstance = ThreadPoolInstance.getThreadPoolInstance();
     private final SystemApi systemApi;
     private final RedisService redisService;
@@ -36,7 +38,6 @@ public class OrderServiceImpl extends BaseServiceImpl<Order,Long> implements Ord
     //由于rabbitTemplate的scope属性设置为ConfigurableBeanFactory.SCOPE_PROTOTYPE，所以不能自动注入
 
     private RabbitTemplate rabbitTemplate;
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     public OrderServiceImpl(SystemApi systemApi, RedisService redisService,
