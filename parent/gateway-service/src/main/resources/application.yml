@@ -37,6 +37,7 @@ spring:
         #          并用StripPrefix的filter 在转发之前将/demo去掉。
         filters:
         - RewritePath=/order/(?<segment>.*), /$\{segment}
+        - SwaggerHeaderFilter
         - name: RequestRateLimiter
           args:
             key-resolver: '#{@hostAddrKeyResolver}'

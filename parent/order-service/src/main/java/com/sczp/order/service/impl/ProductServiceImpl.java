@@ -7,8 +7,8 @@ import com.sczp.order.repository.ProductRepository;
 import com.sczp.order.service.ProductService;
 import com.sczp.order.util.ObjectToMap;
 import com.sczp.order.util.threadPool.ThreadPoolInstance;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.support.CorrelationData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +22,13 @@ import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 
 @Service
+@Slf4j
 public class ProductServiceImpl implements ProductService , RabbitTemplate.ConfirmCallback{
     private final RedisService redisService;
     private final ProductRepository productRepository;
     private final RedisTemplate redisTemplate;
     private final RabbitTemplate rabbitTemplate;
-    Logger logger =  LogManager.getLogger("weather");
+    Logger logger =  org.slf4j.LoggerFactory.getLogger(ProductServiceImpl.class);
     ExecutorService threadPoolInstance = ThreadPoolInstance.getThreadPoolInstance();
 
     private final String seckillProduct_Key = "seckillProduct";
@@ -74,7 +75,8 @@ public class ProductServiceImpl implements ProductService , RabbitTemplate.Confi
                         hashOperations.putAll(seckillProduct_Key + SerialNumber,map);
         //step5. 创建订单事件，发送到队列，并且存储一条关于队列的数据，以防止发送失败时的重发
                         sendMQ(userId, map);
-
+                        logger.info("当前线程工作完毕");
+                        log.error("假装出错了.....");
         //step4. 用线程池去更新DB
                         threadPoolInstance.execute(()->{
                             Product targetProduct = productRepository.findBySerialNumber(SerialNumber);

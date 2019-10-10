@@ -8,7 +8,7 @@
     <Properties>
         <!-- 格式化输出：%date表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度 %msg：日志消息，%n是换行符-->
         <!-- %logger{36} 表示 Logger 名字最长36个字符 -->
-        <property name="LOG_PATTERN" value="${FILE_NAME} %date{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />
+        <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss, SSS} [%thread] %-5level %logger{36} - %msg%n" />
         <!-- 定义日志存储的路径，不要配置相对路径 -->
         <property name="FILE_PATH" value="C:\Users\ying\zpFile\toolInstall\newSmartGit\gitResouces\sc-zp-Spring-Cloud\parent\log" />
         <property name="FILE_NAME" value="order_service" />
@@ -29,6 +29,8 @@
         </File>
 
         <!-- 这个会打印出所有的info及以下级别的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档-->
+        <!--RollingFile节点用来定义超过指定条件自动删除旧的创建新的Appender[输出器;].-->
+        <!--filePattern : 指定当发生Rolling[滚动]时，文件的转移和重命名规则.-->
         <RollingFile name="RollingFileInfo" fileName="${FILE_PATH}/info.log" filePattern="${FILE_PATH}/${FILE_NAME}-INFO-%d{yyyy-MM-dd}_%i.log.gz">
             <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
             <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>

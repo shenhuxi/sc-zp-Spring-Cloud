@@ -1,5 +1,7 @@
 package com.sczp.order.jpa.utils;
 
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * Date: 2017年12月15日 上午10:06:55 <br/>
  *
@@ -21,12 +23,17 @@ public class ResultObject<E> {
 
 
     /** 是否成功 */
+    @ApiModelProperty("是否成功")
     private Boolean success;
     /** 返回码 */
+    @ApiModelProperty("返回码")
     private Integer code;
+
     /** 返回信息 */
+    @ApiModelProperty("返回信息")
     private String msg;
     /** 返回数据 */
+    @ApiModelProperty("返回数据")
     private E data;
 
     public static ResultObject ok(){
