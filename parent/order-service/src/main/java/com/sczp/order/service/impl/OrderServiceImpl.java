@@ -1,6 +1,8 @@
 package com.sczp.order.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.sczp.common.aspect.SystemLog;
+import com.sczp.common.exception.DataNotFoundException;
 import com.sczp.order.config.RabbitConfig;
 import com.sczp.order.entity.EventPublish;
 import com.sczp.order.entity.Order;
@@ -22,6 +24,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 
@@ -61,6 +64,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order,Long> implements Ord
      * @return 订单
      */
     @Transactional(rollbackFor = Exception.class)
+    @SystemLog(dataType = "订单创建")
     public  boolean  createOrder(Order order){
         //step1. 创建订单
         getCommonRepository().save(order);
@@ -87,6 +91,14 @@ public class OrderServiceImpl extends BaseServiceImpl<Order,Long> implements Ord
             sendQueen(strJson,correlationId);
         });
         return true;
+    }
+
+    @Override
+    @SystemLog(dataType = "订单查询")
+    public Order findOrderById(Long id) {
+        Optional<Order> byId = this.orderRepository.findById(id);
+        Order order= byId.orElseThrow(() -> new DataNotFoundException(id.toString()));
+        return order;
     }
 
     private void sendQueen(String strJson, CorrelationData correlationId){

@@ -7,8 +7,6 @@ import com.sczp.system.repository.UserRepository;
 import com.sczp.system.service.UserService;
 import com.sczp.system.util.threadPool.ThreadPoolInstance;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -38,8 +36,8 @@ public 	class UserServiceImpl extends BaseServiceImpl<User,Long> implements User
 
 	//unless = "#result eq null"会出现缓存穿透哟
 	@Cacheable(value = "user", key = "#name", unless = "#result eq null")
-	@CachePut
-	@CacheEvict
+//	@CachePut
+//	@CacheEvict
 	public String getUserByName(String name) {
 		//step1:查询缓存中是否有此人
 		try {

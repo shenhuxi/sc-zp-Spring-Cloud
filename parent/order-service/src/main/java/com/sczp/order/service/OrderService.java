@@ -6,4 +6,6 @@ public interface OrderService {
     String testRedisKey(String redisKey);
 
     boolean createOrder(Order order);
+
+    Order findOrderById(Long id);
 }
